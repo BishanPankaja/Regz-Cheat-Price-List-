@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Christmas Discount - Regz Cheat Price List</title>
+    <style>
+        :root {
+            --cyan: #00ffff;
+            --cyan-dark: rgba(0, 255, 255, 0.2);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: system-ui, -apple-system, sans-serif;
+        }
+
+        body {
+            background: black;
+            color: white;
+            min-height: 100vh;
+            padding: 2rem;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .badge {
+            display: inline-block;
+            background: rgba(0, 255, 255, 0.1);
+            color: var(--cyan);
+            padding: 0.5rem 1rem;
+            border-radius: 999px;
+            margin-bottom: 1rem;
+        }
+
+        .title {
+            color: var(--cyan);
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .subtitle {
+            color: #666;
+        }
+
+        .section-title {
+            color: var(--cyan);
+            font-size: 1.8rem;
+            text-align: center;
+            margin: 2rem 0;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .card {
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--cyan-dark);
+            border-radius: 1rem;
+            padding: 1.5rem;
+            text-align: center;
+        }
+
+        .card-badge {
+            color: var(--cyan);
+            font-size: 0.875rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .card-title {
+            font-size: 1.25rem;
+            margin-bottom: 1rem;
+        }
+
+        .price {
+            font-size: 2rem;
+            font-weight: bold;
+            margin-bottom: 0.25rem;
+        }
+
+        .old-price {
+            color: #666;
+            text-decoration: line-through;
+            font-size: 0.875rem;
+        }
+
+        .button {
+            background: var(--cyan);
+            color: black;
+            border: none;
+            padding: 0.75rem 1rem;
+            border-radius: 0.5rem;
+            font-weight: bold;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 1rem;
+            transition: opacity 0.2s;
+        }
+
+        .button:hover {
+            opacity: 0.9;
+        }
+
+        .payment-methods {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
+
+        .modal-content {
+            background: black;
+            border: 1px solid var(--cyan-dark);
+            border-radius: 1rem;
+            padding: 2rem;
+            max-width: 500px;
+            width: 90%;
+            position: relative;
+        }
+
+        .modal-close {
+            position: absolute;
+            right: 1rem;
+            top: 1rem;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        .modal-title {
+            color: var(--cyan);
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+
+        .bank-details {
+            text-align: left;
+            border-bottom: 1px solid var(--cyan-dark);
+            padding-bottom: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .bank-name {
+            color: var(--cyan);
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .snow {
+            position: fixed;
+            top: -10px;
+            width: 10px;
+            height: 10px;
+            background: white;
+            border-radius: 50%;
+            filter: blur(1px);
+            animation: fall linear forwards;
+            pointer-events: none;
+        }
+
+        @keyframes fall {
+            to {
+                transform: translateY(100vh);
+            }
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 1rem;
+            }
+
+            .grid {
+                grid-template-columns: 1fr;
+            }
+
+            .title {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <div class="badge">Limited Time Offer</div>
+            <h1 class="title">🎄 Christmas Discount 🎄</h1>
+            <p class="subtitle">Valid until December 25, 2024</p>
+        </header>
+
+        <section>
+            <h2 class="section-title">Lifetime Panel Plans</h2>
+            <div class="grid" id="lifetimePlans"></div>
+        </section>
+
+        <section>
+            <h2 class="section-title">Monthly Panel Plans</h2>
+            <div class="grid" id="monthlyPlans"></div>
+        </section>
+
+        <div class="card">
+            <h2 class="section-title">Payment Methods</h2>
+            <div class="payment-methods">
+                <button class="button" onclick="showModal('binance')">Binance</button>
+                <button class="button" onclick="showModal('ezcash')">eZ Cash</button>
+                <button class="button" onclick="showModal('bank')">Bank</button>
+            </div>
+            
+            <div style="text-align: center; margin-top: 2rem;">
+                <h3 style="color: var(--cyan); margin-bottom: 1rem;">Contact to Buy</h3>
+                <p style="font-size: 1.25rem; margin-bottom: 1rem;">📞 +94 76 754 9688</p>
+                <div class="badge">🔒 100% SAFE – No Account Ban</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="modal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal()">×</button>
+            <h2 class="modal-title" id="modalTitle"></h2>
+            <div id="modalContent"></div>
+        </div>
+    </div>
+
+    <script>
+        // Data
+        const lifetimePlans = [
+            { name: 'Supreme + Essential + Legit', price: '4500', oldPrice: '6000', type: 'Complete Package' },
+            { name: 'Supreme + Essential', price: '3500', oldPrice: '5000', type: 'Popular Choice' },
+            { name: 'Supreme + Legit', price: '2500', oldPrice: '3500', type: 'Enhanced Package' },
+            { name: 'Essential + Legit', price: '2500', oldPrice: '3500', type: 'Value Package' },
+            { name: 'Supreme', price: '1500', oldPrice: '2500', type: 'Basic Package' },
+            { name: 'Essential', price: '1500', oldPrice: '2500', type: 'Basic Package' },
+            { name: 'Legit', price: '1000', oldPrice: '1500', type: 'Basic Package' },
+        ];
+
+        const monthlyPlans = [
+            { name: 'Supreme + Essential + Legit', price: '4000', type: 'Monthly Complete Package' },
+            { name: 'Supreme + Essential', price: '3500', type: 'Monthly Popular Choice' },
+            { name: 'Supreme + Legit', price: '2500', type: 'Monthly Enhanced Package' },
+            { name: 'Essential + Legit', price: '2500', type: 'Monthly Value Package' },
+        ];
+
+        const modalDetails = {
+            bank: `
+                <div class="bank-details">
+                    <h3 class="bank-name">Dialog Finance PLC</h3>
+                    <p>Account: 001020967380</p>
+                    <p>Name: G A P B P GUNAWARDANA</p>
+                    <p style="color: #666;">Branch: Head Office</p>
+                </div>
+                <div class="bank-details">
+                    <h3 class="bank-name">Sampath Bank</h3>
+                    <p>Account: 101052917691</p>
+                    <p>Name: G A P B P GUNAWARDANA</p>
+                    <p style="color: #666;">Branch: MATARA SUPER</p>
+                </div>
+            `,
+            ezcash: '<p style="font-size: 2rem; text-align: center;">0762804327</p>',
+            binance: '<p style="font-size: 2rem; text-align: center;">519875786</p>'
+        };
+
+        // Functions
+        function createPlanCard(plan, isLifetime = true) {
+            return `
+                <div class="card">
+                    <p class="card-badge">${plan.type}</p>
+                    <h3 class="card-title">${plan.name}</h3>
+                    <p class="price">${plan.price} LKR</p>
+                    ${isLifetime ? `<p class="old-price">${plan.oldPrice} LKR</p>` : ''}
+                    <button class="button" onclick="contactWhatsApp()">Contact to Purchase</button>
+                </div>
+            `;
+        }
+
+        function showModal(type) {
+            const modal = document.getElementById('modal');
+            const modalTitle = document.getElementById('modalTitle');
+            const modalContent = document.getElementById('modalContent');
+            
+            modalTitle.textContent = type.charAt(0).toUpperCase() + type.slice(1) + ' Details';
+            modalContent.innerHTML = modalDetails[type];
+            modal.style.display = 'flex';
+        }
+
+        function closeModal() {
+            document.getElementById('modal').style.display = 'none';
+        }
+
+        function contactWhatsApp() {
+            window.location.href = 'https://wa.me/message/H762Y3EXJTAPP1';
+        }
+
+        function createSnowflake() {
+            const snow = document.createElement('div');
+            snow.className = 'snow';
+            snow.style.left = Math.random() * 100 + 'vw';
+            snow.style.animationDuration = Math.random() * 3 + 2 + 's';
+            snow.style.opacity = Math.random();
+            snow.style.width = snow.style.height = Math.random() * 10 + 5 + 'px';
+            
+            document.body.appendChild(snow);
+            
+            snow.addEventListener('animationend', () => snow.remove());
+        }
+
+        // Initialize
+        document.getElementById('lifetimePlans').innerHTML = lifetimePlans.map(plan => createPlanCard(plan, true)).join('');
+        document.getElementById('monthlyPlans').innerHTML = monthlyPlans.map(plan => createPlanCard(plan, false)).join('');
+
+        // Snow animation
+        setInterval(createSnowflake, 100);
+
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            const modal = document.getElementById('modal');
+            if (event.target === modal) {
+                closeModal();
+            }
+        };
+    </script>
+</body>
+</html>
